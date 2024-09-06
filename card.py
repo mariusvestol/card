@@ -18,6 +18,8 @@ def drive():
 	print("tester")
 
 
+#morendin
+
 def test():
 	if green:
 		print("yes")
