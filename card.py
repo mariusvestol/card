@@ -3,16 +3,38 @@ import db
 import importlib
 
 
-#root = Tk()
+root = Tk()
 
 
 
-script_path = "db.py"
 
-with open(script_path, "r") as file:
+
+class NewButton(Button):
+	def __init__(self, parent, buttonId, **kwargs):
+		super().__init__(parent, **kwargs)
+		self.buttonId = buttonId
+
+
+def delete(dId):
+	print(dId)
+	for b in buttons:
+		if b.buttonId == dId:
+			goneButton = b
+			goneButton.destroy()
+			buttons.remove(b)
+			with open("db.py", "r") as file:
+				content = file.readlines()
+			content.remove(dId)
+			with open("db.py", 'w') as file:
+				file.writelines(content)
+
+
+
+with open("db.py", "r") as file:
 	content = file.readlines()
 
 new_code = []
+buttons = []
 
 
 line = f"""database.append('{input()}')"""
@@ -21,7 +43,14 @@ new_code.append('\n' + line)  # Adding newline to maintain line breaks
 
 content.extend(new_code)
 
-with open(script_path, 'w') as file:
+
+# vi skriver hele på nytt writelines tar kodeblokken så alt vi må gjøre er å lokalisere hvor det vi vil fjerne er også fjerne dette fra listen
+
+#thislist.remove(det du vil slette) 
+
+
+#with gjor at vi lukker dokumentet etter vi har jobbet med det
+with open("db.py", 'w') as file:
 	file.writelines(content)
 
 
@@ -29,6 +58,24 @@ importlib.reload(db)
 print(db.database)
 
 #sjekke hver milimeter
+
+with open("db.py", "r") as file:
+	print(file.readlines())
+
+
+
+
+#vi mangler fortsatt å få inn nye tror jeg - med mindre den duplicater liksom idk
+
+with open("db.py", "r") as file:
+
+	for line in file.readlines():
+		if line[:15] == "database.append":
+	
+			button = NewButton(root, text=line, command=lambda line=line: delete(line), buttonId=line)
+# vi skriver lambda i=i fordi vi vil ha argumenter i funksjonen og fordi vi ønsker i da knappen var laget
+			button.pack()
+			buttons.append(button)
 
 
 """
@@ -56,6 +103,6 @@ def test():
 
 
 """
-#root.mainloop()
+root.mainloop()
 
 
