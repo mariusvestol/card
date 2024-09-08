@@ -27,6 +27,8 @@ def delete(dId):
 			content.remove(dId)
 			with open("db.py", 'w') as file:
 				file.writelines(content)
+	importlib.reload(db)
+	print(db.database)
 
 
 
@@ -37,7 +39,10 @@ new_code = []
 buttons = []
 
 
-line = f"""database.append('{input()}')"""
+
+
+#line = f"""database.append('{input()}')"""
+"""
 new_code.append('\n' + line)  # Adding newline to maintain line breaks
 
 
@@ -52,7 +57,7 @@ content.extend(new_code)
 #with gjor at vi lukker dokumentet etter vi har jobbet med det
 with open("db.py", 'w') as file:
 	file.writelines(content)
-
+"""
 
 importlib.reload(db)
 print(db.database)
@@ -76,6 +81,39 @@ with open("db.py", "r") as file:
 # vi skriver lambda i=i fordi vi vil ha argumenter i funksjonen og fordi vi ønsker i da knappen var laget
 			button.pack()
 			buttons.append(button)
+
+
+
+
+text = Text(root, height=1)
+text.pack()
+
+def pushText():
+
+	with open("db.py", "r") as file:
+		content = file.readlines()
+
+	print("hello world")
+
+	line = f"""database.append('{text.get("1.0","end-1c")}')"""
+
+	new_code.append('\n' + line)  # Adding newline to maintain line breaks
+
+
+	content.extend(new_code)
+
+	with open("db.py", 'w') as file:
+		file.writelines(content)
+	button = NewButton(root, text=line, command=lambda line=line: delete(line), buttonId=line)
+# vi skriver lambda i=i fordi vi vil ha argumenter i funksjonen og fordi vi ønsker i da knappen var laget
+	button.pack()
+	buttons.append(button)
+
+
+
+
+button = Button(root, command=pushText, text="push")
+button.pack()
 
 
 """
