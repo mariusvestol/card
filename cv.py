@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 
-capture = cv.VideoCapture(1)
+capture = cv.VideoCapture(0)
 
 
 def countPix(mask):
@@ -46,7 +46,7 @@ while True:
 #forstår ikke denne men tror max gir den med mest
 
 	newVal = dominant
-	if newVal == val
+	if newVal == val:
 		print(newVal)
 	val = newVal
 
