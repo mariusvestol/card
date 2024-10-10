@@ -21,6 +21,7 @@ color_ranges = {
 
 pixel_counts = {}
 
+#hei
 
 while True:
 	isTrue, frame = capture.read()
