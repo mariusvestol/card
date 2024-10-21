@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 
-capture = cv.VideoCapture(0)
+capture = cv.VideoCapture(1)
 
 
 def countPix(mask):
