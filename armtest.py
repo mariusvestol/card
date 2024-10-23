@@ -7,6 +7,10 @@ import math
 Arm = Arm_Device()
 time.sleep(.1)
 
+#Arm.Arm_serial_servo_write(6, 168, 500)
+
+#ARMEN ER INNTIL KORTLESEREN PÅ a=153 GRADER, IKKE GÅ NÆRMERE
+
 
 def degtorad(vinkel_i_radianer):
 	return vinkel_i_radianer*((2*math.pi)/360)
@@ -14,26 +18,51 @@ def degtorad(vinkel_i_radianer):
 def deg(r):
 	return r*360/2/math.pi
 
-a = 36
-b = deg(math.acos(math.sin(degtorad(a))-10/8.5)-degtorad(a))
+a = 140
+
+print(deg(math.acos(math.sin(degtorad(a))-10/8.5)-degtorad(a)))
+"""
 c = 180-(a+b)
 
+Arm.Arm_serial_servo_write(1, 90, 500)
 
 print(deg(b))
 
 Arm.Arm_serial_servo_write(4, c, 500)
-time.sleep(.2)
+time.sleep(1)
 
 Arm.Arm_serial_servo_write(2, a, 500)
-time.sleep(0.2)
+time.sleep(1)
 Arm.Arm_serial_servo_write(3, b, 500)
-time.sleep(.2)
+time.sleep(2)
 
-Arm.Arm_serial_servo_write(1, 180, 500)
+Arm.Arm_serial_servo_write(1, 90, 500)
 time.sleep(.2)
 time.sleep(2)
 
-for i in range(100):
+"""
+
+grader_test=44
+
+
+time.sleep(1)
+
+for i in range(grader_test):
+	a-=1
+	b = deg(math.acos(math.sin(degtorad(a))-10/8.5)-degtorad(a))
+	c = 180-(a+b)
+	Arm.Arm_serial_servo_write(2, a, 500)
+	time.sleep(0.01)
+	Arm.Arm_serial_servo_write(3, b, 500)
+	time.sleep(0.01)
+	Arm.Arm_serial_servo_write(4, c, 500)
+	time.sleep(0.01)
+	
+print(a)
+
+time.sleep(1)
+
+for i in range(grader_test):
 	a+=1
 	b = deg(math.acos(math.sin(degtorad(a))-10/8.5)-degtorad(a))
 	c = 180-(a+b)
@@ -43,4 +72,11 @@ for i in range(100):
 	time.sleep(0.01)
 	Arm.Arm_serial_servo_write(4, c, 500)
 	time.sleep(0.01)
+
+
+
+	
+
+
+
 
