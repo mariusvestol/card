@@ -42,19 +42,22 @@ time.sleep(2)
 
 """
 
+Arm.Arm_serial_servo_write(6, 170, 500)
+
 grader_test=30
 
 
 time.sleep(1)
 
 
-for y in range(5):
-	grader_test-=1
+for y in range(8):
+	grader_test+=1
 
 	for i in range(grader_test):
 		a-=1
 		b = deg(math.acos(math.sin(degtorad(a))-10/8.5)-degtorad(a))
 		c = 180-(a+b)
+		
 		Arm.Arm_serial_servo_write(2, a, 500)
 		time.sleep(0.001)
 		Arm.Arm_serial_servo_write(3, b, 500)
@@ -63,7 +66,8 @@ for y in range(5):
 		time.sleep(0.001)
 		
 	print(a)
-
+	print(7.4+(8.5*math.cos(degtorad(b-a-90))-8.5*math.cos(degtorad(a))))
+		
 	time.sleep(1)
 
 	for i in range(grader_test):
