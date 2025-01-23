@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pica er digg</title>
+<link rel="stylesheet" href="pica.css">
+</head>
+<body id="mordi">
+
+<h1>Pica er  digg</h1>
+<h2> Mordi </h2>
+<p>This is a paragraph.<br> Toeren <b>din</b> er</p>
+<h3> Stor</h3>
+<p> 
+e,hbjl hasdb jkashfkhfv
+</p>
+<h1 style="color:red;">Stor bro</h1>
+<hr>
+<img src="ape.jpg" alt="ape.jpg" id="img1">
+
+<input type="range" id="r1" name="ape.jpg" min=50  max=200 value=50>
+
+
+
+
+</body>
+
+
+<script>
+	
+img = document.getElementById("img1");
+range1 = document.getElementById("r1");
+
+
+range1.onchange = function() {
+	img.style.width = range1.value + "px";
+	img.style.height = range1.value + "px";
+	console.log(range1.value);
+	}
+
+
+</script>
+</html>
