@@ -44,42 +44,42 @@ time.sleep(2)
 
 Arm.Arm_serial_servo_write(6, 170, 500)
 
-grader_test=30
+grader_test=43
 
 
 time.sleep(1)
 
 
-for y in range(8):
+for y in range(2):
 	grader_test+=1
 
 	for i in range(grader_test):
 		a-=1
-		b = deg(math.acos(math.sin(degtorad(a))-10/8.5)-degtorad(a))
+		b = deg(math.acos(math.sin(degtorad(a))-10/8.5)-degtorad(a)) + 16  # legger til 16 grader i høyde
 		c = 180-(a+b)
 		
 		Arm.Arm_serial_servo_write(2, a, 500)
-		time.sleep(0.001)
+		time.sleep(0.0000001)
 		Arm.Arm_serial_servo_write(3, b, 500)
-		time.sleep(0.001)
+		time.sleep(0.0000001)
 		Arm.Arm_serial_servo_write(4, c, 500)
-		time.sleep(0.001)
+		time.sleep(0.0000001)
 		
 	print(a)
-	print(7.4+(8.5*math.cos(degtorad(b-a-90))-8.5*math.cos(degtorad(a))))
+	print(8.6+(8.5*math.cos(degtorad(b-a-90))-8.5*math.cos(degtorad(a))))
 		
-	time.sleep(1)
+	time.sleep(1.5)
 
 	for i in range(grader_test):
 		a+=1
-		b = deg(math.acos(math.sin(degtorad(a))-10/8.5)-degtorad(a))
+		b = deg(math.acos(math.sin(degtorad(a))-10/8.5)-degtorad(a)) + 16 # legger til 16 grader i høyde
 		c = 180-(a+b)
 		Arm.Arm_serial_servo_write(2, a, 500)
-		time.sleep(0.001)
+		time.sleep(0.0000001)
 		Arm.Arm_serial_servo_write(3, b, 500)
-		time.sleep(0.001)
+		time.sleep(0.000001)
 		Arm.Arm_serial_servo_write(4, c, 500)
-		time.sleep(0.001)
+		time.sleep(0.0000001)
 
 	time.sleep(4)
 

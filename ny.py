@@ -1,6 +1,107 @@
 import tkinter as tk
 import pickle
 import time
+from Arm_Lib import Arm_Device
+import math
+import threading
+#Create a robotic arm object
+Arm = Arm_Device()
+time.sleep(.1)
+
+#Arm.Arm_serial_servo_write(6, 168, 500)
+
+#ARMEN ER INNTIL KORTLESEREN PÅ a=153 GRADER, IKKE GÅ NÆRMERE
+
+
+"""
+
+Kortet må høyere, gå raskere, lenger bak
+Integrere mediapipe for bedre håndtering av kamera
+Finne ulike avstander 
+
+
+"""
+
+
+def degtorad(vinkel_i_radianer):
+	return vinkel_i_radianer*((2*math.pi)/360)
+
+def deg(r):
+	return r*360/2/math.pi
+
+a = 140
+
+print(deg(math.acos(math.sin(degtorad(a))-10/8.5)-degtorad(a)))
+"""
+c = 180-(a+b)
+
+Arm.Arm_serial_servo_write(1, 90, 500)
+
+print(deg(b))
+
+Arm.Arm_serial_servo_write(4, c, 500)
+time.sleep(1)
+
+Arm.Arm_serial_servo_write(2, a, 500)
+time.sleep(1)
+Arm.Arm_serial_servo_write(3, b, 500)
+time.sleep(2)
+
+Arm.Arm_serial_servo_write(1, 90, 500)
+time.sleep(.2)
+time.sleep(2)
+
+"""
+
+Arm.Arm_serial_servo_write(6, 170, 500)
+
+grader_test=30
+
+
+time.sleep(1)
+
+
+def testarm():
+    for y in range(8):
+        grader_test+=1
+
+        for i in range(grader_test):
+            a-=1
+            b = deg(math.acos(math.sin(degtorad(a))-10/8.5)-degtorad(a))
+            c = 180-(a+b)
+            
+            Arm.Arm_serial_servo_write(2, a, 500)
+            time.sleep(0.001)
+            Arm.Arm_serial_servo_write(3, b, 500)
+            time.sleep(0.001)
+            Arm.Arm_serial_servo_write(4, c, 500)
+            time.sleep(0.001)
+            
+        print(a)
+        print(7.4+(8.5*math.cos(degtorad(b-a-90))-8.5*math.cos(degtorad(a))))
+            
+        time.sleep(1)
+
+        for i in range(grader_test):
+            a+=1
+            b = deg(math.acos(math.sin(degtorad(a))-10/8.5)-degtorad(a))
+            c = 180-(a+b)
+            Arm.Arm_serial_servo_write(2, a, 500)
+            time.sleep(0.001)
+            Arm.Arm_serial_servo_write(3, b, 500)
+            time.sleep(0.001)
+            Arm.Arm_serial_servo_write(4, c, 500)
+            time.sleep(0.001)
+
+        time.sleep(4)
+
+
+	
+
+
+
+
+
 
 label_texts = []
 
@@ -151,5 +252,6 @@ infoLabel.pack()
 
 
 
-
+testT = threading.Thread(target=testarm)
+testT.start()
 root.mainloop()
