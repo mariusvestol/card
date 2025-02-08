@@ -50,7 +50,7 @@ grader_test=43
 time.sleep(1)
 
 
-for y in range(2):
+for y in range(7):
 	grader_test+=1
 
 	for i in range(grader_test):

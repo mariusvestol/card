@@ -62,6 +62,7 @@ time.sleep(1)
 
 
 def testarm():
+    global grader_test, a
     for y in range(8):
         grader_test+=1
 
@@ -79,7 +80,7 @@ def testarm():
             
         print(a)
         print(7.4+(8.5*math.cos(degtorad(b-a-90))-8.5*math.cos(degtorad(a))))
-            
+        push()
         time.sleep(1)
 
         for i in range(grader_test):
@@ -227,7 +228,7 @@ dispCanvas.pack(side="left", fill="both", expand=True)
 scrollBar.pack(side="right", fill="y")
 
 #f"Label {i}" for i in range(1, 51)
-
+ 
 refreshLabel(db)
 print(db)
 print(label_texts)
