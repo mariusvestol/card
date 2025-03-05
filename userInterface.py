@@ -1,15 +1,58 @@
 import tkinter as tk
-import DataHandler
+from DataHandler import DataHandler
 
-class userInterface(tk.Tk):
+class UserInterface(tk.Tk):
 
     def __init__(self):
         super().__init__()
+
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1)
     
+
         self.dh = DataHandler("db.txt")
         self.infoFrame = tk.Frame(self, height=100)
         self.infoFrame.grid(column=0, row=1)
+        
+        self.cardDisplay = tk.Frame(self)
+        self.dispCanvas = tk.Canvas(self.cardDisplay)
+        self.scrollBar = tk.Scrollbar(self.cardDisplay, orient="vertical", command=self.dispCanvas.yview)
+        self.scrollFrame = tk.Frame(self.dispCanvas)
+
+        self.scrollFrame.bind("<Configure>", lambda e: self.dispCanvas.configure(scrollregion=self.dispCanvas.bbox("all")))
+
+        #denne linjen har jeg ikke sett på
+        self.window = self.dispCanvas.create_window((0, 0), window=self.scrollFrame, anchor="nw")
+
+        #må legge til attribute senere fordi scollbar fantes ikke
+        self.dispCanvas.configure(yscrollcommand=self.scrollBar.set)
+
+
+                
+        self.cPad = tk.Frame(self, padx=100, pady=100)
+        self.cPad.grid(column=1, row=0)
+
+        self.testb = tk.Button(self.cPad, text="Press me", command=self.pushLabel, anchor="center")
+        self.testb.pack()
+
+
+
+        self.cardDisplay.grid(column=0, row=0)
+
+
+        self.dispCanvas.pack(side="left", fill="both", expand=True)
+        self.scrollBar.pack(side="right", fill="y")
+
+#f"Label {i}" for i in range(1, 51)
+
+        self.refreshLabel()
+        self.check()
+
+
+# dette skal være mulig å gjøre bedre..
         self.infoLabel = tk.Label(self.infoFrame, text="""
+
+        
 Navn:
                 
 Avstand:
@@ -18,6 +61,12 @@ Tid:
                    
 Antall forsøk:                 
                 """, justify="left", anchor="w")
+        
+        self.infoLabel.pack()
+
+
+
+
 
     def reInfo(li):
         global infoLabel
@@ -33,7 +82,7 @@ Antall forsøk:      {li[3]}
 
     def check(self):
         for text in label_texts:
-            frame = tk.Frame(scrollFrame, borderwidth=1, pady=5, relief="solid")
+            frame = tk.Frame(self.scrollFrame, borderwidth=1, pady=5, relief="solid")
             label1 = tk.Label(frame,text=text, width=25, anchor="w")
             label2 = tk.Label(frame, text="X")
             # relief for synlig kant
@@ -66,5 +115,13 @@ Antall forsøk:      {li[3]}
         self.refreshLabel(db)
         self.check()
         return
-
     
+    def pushLabel(self):
+        self.dh.push()
+        for widget in self.scrollFrame.winfo_children():
+            widget.destroy()
+        self.refreshLabel()
+        self.check()
+
+test = UserInterface()
+test.mainloop()
