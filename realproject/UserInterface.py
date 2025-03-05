@@ -101,7 +101,3 @@ Antall forsøk:      {li[3]}
     def deleteLabel(self, name):
         del self.dh.db[name]
         self.refreshLabel()
-
-
-test = UserInterface()
-test.mainloop()
