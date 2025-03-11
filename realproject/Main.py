@@ -1,5 +1,8 @@
 from UserInterface import UserInterface
+from Arm import Arm
+import threading
 
-test = UserInterface()
+arm = Arm()
+test = UserInterface(arm)
 test.mainloop()
 

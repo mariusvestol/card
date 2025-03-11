@@ -1,14 +1,17 @@
 import tkinter as tk
 from DataHandler import DataHandler
+import threading
 
 class UserInterface(tk.Tk):
 
-    def __init__(self):
+    def __init__(self, arm):
         super().__init__()
-
+        
+        self.arm = arm
+        
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
-    
+        
 
         self.dh = DataHandler("db.txt")
         self.infoFrame = tk.Frame(self, height=100)
@@ -33,6 +36,15 @@ class UserInterface(tk.Tk):
 
         self.testb = tk.Button(self.cPad, text="Press me", command=self.pushLabel, anchor="center")
         self.testb.pack()
+        
+        self.reload = tk.Button(self.cPad, text="reload",  command=lambda: threading.Thread(target=lambda: arm.reload(arm.cards[0]), daemon=True).start(), anchor="center")
+        self.reload.pack()
+        
+        self.open = tk.Button(self.cPad, text="open",  command=lambda: threading.Thread(target=lambda: arm.open(), daemon=True).start(), anchor="center")
+        self.open.pack()
+        
+        self.testCardButton = tk.Button(self.cPad, text="Test Card!",  command=lambda: threading.Thread(target=self.tester, daemon=True).start(), anchor="center")
+        self.testCardButton.pack()
 
         self.cardDisplay.grid(column=0, row=0)
 
@@ -61,6 +73,12 @@ Antall forsøk:
         self.infoLabel.pack()
 
 
+    def tester(self):
+        for i in range(7):
+                for y in range(5):
+                        self.arm.testCard(22+i)
+                self.pushLabel()
+        
     def reInfo(self,li):
         self.infoLabel.config(text=f"""
 Navn:                  {li[0]}
